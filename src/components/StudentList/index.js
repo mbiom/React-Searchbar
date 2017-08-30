@@ -8,6 +8,7 @@ class StudentList extends Component {
   render() {
     const {
       students,
+      rooms,
       onAddClick,
       onSelect,
       onSelectAll,
@@ -18,6 +19,7 @@ class StudentList extends Component {
     const content = students.length
       ? <List
           students={students}
+          rooms={rooms}
           onSelect={onSelect}
           onSelectAll={onSelectAll}
           onRoomChange={onRoomChange}

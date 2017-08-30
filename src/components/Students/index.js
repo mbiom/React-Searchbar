@@ -4,6 +4,7 @@ import Header           from './Header';
 import FilterBar        from '../FilterBar';
 import StudentList      from '../StudentList';
 import AddStudentModal  from '../AddStudentModal';
+import AddRoomModal     from '../AddRoomModal';
 import AssignStudentModal  from '../AssignStudentModal';
 
 import './style.less';
@@ -13,6 +14,7 @@ const getColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
 class Students extends Component {
   static initialState = {
     students: [],
+    rooms: ['Room 1', 'Room 2', 'Room 3', 'Room 4'],
 
     filters: {
       search: '',
@@ -27,6 +29,10 @@ class Students extends Component {
       enrollment: {
         enrolled: true
       }
+    },
+
+    addRoomModal: {
+      isOpen: false,
     },
 
     addStudentModal: {
@@ -120,6 +126,12 @@ class Students extends Component {
     this.setState({ students: newStudents });
   }
 
+  addRoom(room) {
+    this.setState({
+      rooms: [ ...this.state.rooms, room ]
+    });
+  }
+
   addStudents(students) {
     const newStudents = students.map(student => ({
       ...student,
@@ -187,12 +199,13 @@ class Students extends Component {
   }
 
   render() {
-    const { filters, addStudentModal, assignStudentModal, students } = this.state;
+    const { filters, addStudentModal, addRoomModal, assignStudentModal, students, rooms } = this.state;
 
     return (
       <div className="Students">
         <Header
-          onAddClick={::this.toggleModal('addStudentModal', true)}
+          onAddStudentClick={::this.toggleModal('addStudentModal', true)}
+          onAddRoomClick={::this.toggleModal('addRoomModal', true)}
           onAssignClick={::this.toggleModal('assignStudentModal', true)} />
         <FilterBar
           filters={filters}
@@ -208,11 +221,17 @@ class Students extends Component {
           onEditModeChange={::this.toggleEditMode}
           updateStudent={::this.updateStudent}
           students={::this.applyFilters()}
+          rooms={rooms}
         />
         <AddStudentModal
           visible={addStudentModal.isOpen}
           onSave={::this.addStudents}
           onClose={::this.toggleModal('addStudentModal', false)}
+        />
+        <AddRoomModal
+          visible={addRoomModal.isOpen}
+          onSave={::this.addRoom}
+          onClose={::this.toggleModal('addRoomModal', false)}
         />
         <AssignStudentModal
           students={students}

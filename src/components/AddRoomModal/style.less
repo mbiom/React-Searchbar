@@ -1,0 +1,46 @@
+@import 'style/mixins';
+
+@window-padding: 24px;
+
+.AddStudentModal {
+  &__row {
+    display: flex;
+
+    margin-bottom: 16px;
+    align-items: center;
+
+    &-id {
+      width: 20px;
+      margin-right: 15px;
+    }
+
+    &-first-name, &-last-name, &-room, &-parent {
+      flex: 1;
+      margin-left: 12px;
+    }
+
+    &-action {
+      display: flex;
+      flex-direction: column;
+
+      width: 72px;
+      flex-shrink: 0;
+
+      margin-left: 12px;
+    }
+
+    &-action-submit {
+      background-color: #7fad1b;
+
+      &:active {
+        background-color: #7fad1b;
+        opacity: 0.9;
+      }
+    }
+
+    &-action-remove {
+      align-self: flex-end;
+      cursor: pointer;
+    }
+  }
+}

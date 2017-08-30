@@ -52,7 +52,7 @@ class List extends Component {
   }
 
   render() {
-    const { students } = this.props;
+    const { students, rooms } = this.props;
 
     return (
       <div className="StudentList__list">
@@ -74,10 +74,11 @@ class List extends Component {
               checked={this.state.selectedRoom}
               onToggle={::this.changeRoom}
             >
-              <RadioGroup.Item title="Room 1" value="Room 1" />
-              <RadioGroup.Item title="Room 2" value="Room 2" />
-              <RadioGroup.Item title="Room 3" value="Room 3" />
-              <RadioGroup.Item title="Room 4" value="Room 4" />
+            { rooms && !!rooms.length &&
+              rooms.map((room, index) =>
+                <RadioGroup.Item title={room} value={room} key={index} />
+              )
+            }
             </RadioGroup>
           </div>
         </div>
